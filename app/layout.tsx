@@ -12,13 +12,16 @@ export const metadata: Metadata = {
     description: "The NotesClient for your notes",
 };
 
-export default function RootLayout({children}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({children, modal}: Readonly<{
+    children: React.ReactNode;
+    modal: React.ReactNode }>) {
     return (
         <html lang="en">
         <body>
         <TanStackProvider>
             <Header/>
             <div className="flex flex-1 flex-col">{children}</div>
+            {modal}
             <Footer/>
         </TanStackProvider>
         </body>
