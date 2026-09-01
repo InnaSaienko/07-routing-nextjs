@@ -12,7 +12,7 @@ export interface FetchNotesParams extends NoteSearchParams {
     page?: number;
     perPage?: number;
     search?: string;
-    tag?: NoteTag | "all";
+    tag?: NoteTag | null;
 }
 
 export interface FetchNotesResponse {
@@ -40,7 +40,7 @@ export const fetchNotes = async (
         page: params.page,
         perPage: params.perPage,
         search: params.search,
-        tag: params.tag,
+        ...(params.tag ? {tag: params.tag} : {}),
     };
     const response: AxiosResponse<FetchNotesResponse> = await notesApi.get("/notes", {params: requestParams,});
     return response.data;

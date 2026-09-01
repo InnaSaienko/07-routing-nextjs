@@ -12,17 +12,24 @@ import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import NoteList from "@/components/NoteList/NoteList";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
+import {NoteTag} from "@/types/note";
+
+
+interface NotesClientParams {
+    tag?: NoteTag | null;
+}
 
 const PER_PAGE = 12;
-const NotesClient = () => {
+const NotesClient = ({tag}: NotesClientParams) => {
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const {data, isLoading, isError} = useQuery({
-        queryKey: ['notes', page, search],
-        queryFn: () => fetchNotes({page, perPage: PER_PAGE, search}),
+        queryKey: ['notes', page, search, tag ?? "all"],
+        queryFn: () => fetchNotes({page, perPage: PER_PAGE, search, tag}),
         placeholderData: keepPreviousData,
+        refetchOnMount: false,
     });
 
     const handleSearch = useDebouncedCallback((value: string) => {
@@ -38,14 +45,15 @@ const NotesClient = () => {
         <div className={css.app}>
             <header className={css.toolbar}>
                 <SearchBox onSearch={handleSearch}/>
-                {totalPages > 1 && <Pagination totalPages={totalPages} currentPage={page} onPageChange={setPage} />}
+                {totalPages > 1 && <Pagination totalPages={totalPages} currentPage={page} onPageChange={setPage}/>}
                 <button className={css.button} onClick={() => setIsModalOpen(true)}>
                     Create note +
                 </button>
             </header>
             <main className={css.main}>
                 {isLoading && <Loader/>}
-                {isError && <ErrorMessage message="Something went wrong while fetching notes. Please try again later."/>}
+                {isError &&
+                    <ErrorMessage message="Something went wrong while fetching notes. Please try again later."/>}
                 {!isLoading && !isError && notes.length === 0 && <p className={css.empty}>No notes found.</p>}
                 {!isLoading && !isError && <NoteList notes={notes}/>}
             </main>
