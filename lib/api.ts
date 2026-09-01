@@ -1,5 +1,5 @@
 import axios, {type AxiosResponse} from 'axios';
-import {Note, NoteFormData} from "@/types/note";
+import {Note, NoteFormData, NoteTag} from "@/types/note";
 
 
 // HTTP Request Parameters Interfaces
@@ -12,6 +12,7 @@ export interface FetchNotesParams extends NoteSearchParams {
     page?: number;
     perPage?: number;
     search?: string;
+    tag?: NoteTag | "all";
 }
 
 export interface FetchNotesResponse {
@@ -39,6 +40,7 @@ export const fetchNotes = async (
         page: params.page,
         perPage: params.perPage,
         search: params.search,
+        tag: params.tag,
     };
     const response: AxiosResponse<FetchNotesResponse> = await notesApi.get("/notes", {params: requestParams,});
     return response.data;
