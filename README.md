@@ -1,8 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Note HUB
+
+Note HUB is a notes management application built with Next.js 16 that demonstrates various routing techniques including intercepting routes, parallel routes, and dynamic routing.
+
+## About the Project
+
+This project showcases Next.js 16 App Router features through a practical notes application. It implements different routing patterns to create a seamless user experience with modal dialogs, filtering, and note management.
+
+## Technologies Used
+
+- **Next.js 16** with App Router
+- **React 19** with TypeScript
+- **CSS Modules** for styling
+- **React Query** for data fetching
+- **Axios** for API calls
+- **Formik + Yup** for form handling
+- **React Paginate** for pagination
+
+## Routing Features Demonstrated
+
+### Intercepting Routes
+- Modal dialogs that intercept navigation using `(.)` prefix
+- Note preview modal that appears when clicking note links
+
+### Parallel Routes
+- Simultaneous rendering of notes content and sidebar filters
+- Independent route handling within the same layout
+
+### Dynamic Routes
+- Note filtering by tags using catch-all routes `[...slug]`
+- Individual note pages with dynamic `[id]` parameters
+
+### Route Groups
+- Organized folder structure using `(group)` naming convention
+- Clean URL structure without affecting routing
+
+## Project Structure
+
+```
+app/
+├── @modal/(.)notes/[id]/    # Intercepting route for note preview modal
+├── notes/
+│   ├── filter/
+│   │   ├── @sidebar/        # Parallel route for filter sidebar
+│   │   └── [...slug]/       # Dynamic filtering routes
+│   └── [id]/                # Individual note pages
+├── layout.tsx
+└── page.tsx
+
+components/
+├── Modal/                   # Reusable modal component
+├── Header/
+├── Footer/
+└── TanStackProvider/        # React Query provider
+```
 
 ## Getting Started
 
-First, run the development server:
+Run the development server:
 
 ```bash
 npm run dev
@@ -10,27 +64,31 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the application.
 
-You can start editing the page by modifying `app/Notes.client.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-## Learn More
+## Key Features
 
-To learn more about Next.js, take a look at the following resources:
+- **Note Management**: Create, read, update, and delete notes
+- **Tag Filtering**: Filter notes by tags with dynamic routing
+- **Modal Previews**: Click on notes to see previews in modal dialogs
+- **Search**: Debounced search functionality
+- **Pagination**: Navigate through notes with pagination
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Learn More About Next.js
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Next.js Learn Course](https://nextjs.org/learn)
+- [Next.js GitHub Repository](https://github.com/vercel/next.js)
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new) from the creators of Next.js.
