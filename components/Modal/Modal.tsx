@@ -33,7 +33,7 @@ const Modal = ({children, onClose}: ModalProps) => {
         };
     }, [onClose]);
 
-    const handleClose = (event: MouseEvent<HTMLDivElement>) => {
+    const handleClose = (event: MouseEvent<HTMLElement>) => {
         if (event.target === event.currentTarget) {
             if (onClose) {
                 onClose();
@@ -44,7 +44,10 @@ const Modal = ({children, onClose}: ModalProps) => {
     };
     return createPortal(
         <div className={css.backdrop} role="dialog" aria-modal="true" onClick={handleClose}>
-            <div className={css.modal}>{children}</div>
+            <div className={css.modal}>
+                {children}
+                <button className={css.closeButton} onClick={handleClose}>×</button>
+            </div>
         </div>,
         document.body
     );

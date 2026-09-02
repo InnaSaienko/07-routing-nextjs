@@ -6,7 +6,8 @@ import Modal from "@/components/Modal/Modal";
 
 type NotePreviewClientProps = Note
 
-const NotePreviewClient = ({id, tag, title, content, createdAt, updatedAt}: NotePreviewClientProps) => {
+const NotePreviewClient = ({tag, title, content, createdAt, updatedAt}: NotePreviewClientProps) => {
+
     return (
         <Modal>
             <div className={css.modalContent}>
@@ -16,8 +17,8 @@ const NotePreviewClient = ({id, tag, title, content, createdAt, updatedAt}: Note
                 </div>
                 <div className={css.content}>{content}</div>
                 <div className={css.meta}>
-                    <span className={css.date}>Created: { new Date(createdAt).toLocaleString() }</span>
-                    <span className={css.date}>Updated: { new Date(updatedAt).toLocaleString() }</span>
+                    <span className={css.date}>Created: {new Date(createdAt).toLocaleString()}</span>
+                    <span className={css.date}>Updated: {new Date(updatedAt).toLocaleString()}</span>
                 </div>
             </div>
         </Modal>
